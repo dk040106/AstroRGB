@@ -48,8 +48,9 @@ def error(r, g, b):
 
     for x in range(x_search - margin, x_search + margin):
         for y in range(y_search - margin, y_search + margin):
-            errorCount += absError(r[x][y], g[x][y]) + absError(g[x]
-                                                                [y], b[x][y]) + absError(b[x][y], r[x][y])
+            errorCount += absError(r[x][y], g[x][y])
+                        + absError(g[x][y], b[x][y])
+                        + absError(b[x][y], r[x][y])
 
     return errorCount
 
