@@ -48,9 +48,9 @@ def error(r, g, b):
 
     for x in range(x_search - margin, x_search + margin):
         for y in range(y_search - margin, y_search + margin):
-            errorCount += absError(r[x][y], g[x][y])
-                        + absError(g[x][y], b[x][y])
-                        + absError(b[x][y], r[x][y])
+            errorSum = absError(
+                r[x][y], g[x][y]) + absError(g[x][y], b[x][y]) + absError(b[x][y], r[x][y])
+            errorCount += errorSum
 
     return errorCount
 
@@ -106,7 +106,7 @@ print("Aligning Images...")
 start = time.time()
 
 # alignImage를 사용하여 이미지를 보정한다.
-# r, g, b = alignImage(r, g, b)
+r, g, b = alignImage(r, g, b)
 
 # 걸린 시간 출력
 print("걸린 시간: {}초".format(int(time.time() - start)))
@@ -130,8 +130,11 @@ b = np.where(b < MIN_THRES, 0, b)
 
 # 3개의 2차원 배열을 하나의 3차원 배열로 합친다.
 print("Stacking Images...")
-rgb = np.dstack((r.astype(np.uint8),
-                 g.astype(np.uint8), b.astype(np.uint8)))
+rgb = np.dstack((
+    r.astype(np.uint8),
+    g.astype(np.uint8),
+    b.astype(np.uint8)
+))
 
 
 # 실시간 시각화를 위한 코드
