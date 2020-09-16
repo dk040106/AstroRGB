@@ -11,10 +11,8 @@ import numpy as np
 from PIL import Image
 import time
 
-# 이미지 파일 관련 설정
-target_name = 'm51'
-input_dir = './examples/' + target_name
-output_dir = './examples/finished/'
+# 이미지 파일이 위치한 폴더
+target_dir = './examples/m51/'
 
 # 각 색깔에 따른 가중치
 r_w = 1
@@ -28,9 +26,9 @@ t_w = 0.9
 MIN_THRES = 40
 
 # 파일을 열어서 데이터를 가져온다.
-r = fits.open(input_dir + 'r.fit')[0].data.astype(np.float64)
-g = fits.open(input_dir + 'g.fit')[0].data.astype(np.float64)
-b = fits.open(input_dir + 'b.fit')[0].data.astype(np.float64)
+r = fits.open(target_dir + 'r.fit')[0].data.astype(np.float64)
+g = fits.open(target_dir + 'g.fit')[0].data.astype(np.float64)
+b = fits.open(target_dir + 'b.fit')[0].data.astype(np.float64)
 
 
 # 절댓값 오차 계산하기
@@ -143,4 +141,4 @@ rgb = np.dstack((r.astype(np.uint8),
 # 이미지 파일로 저장한다.
 print("Saving Images...")
 im = Image.fromarray(rgb)
-im.save(output_dir + f'{target_name}.png')
+im.save(target_dir + 'finished.png')
